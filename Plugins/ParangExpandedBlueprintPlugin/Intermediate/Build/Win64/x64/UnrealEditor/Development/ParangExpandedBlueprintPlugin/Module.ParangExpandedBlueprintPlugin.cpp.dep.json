@@ -1,0 +1,22 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\parangexpandedblueprintplugin\\module.parangexpandedblueprintplugin.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\expandedblueprint\\intermediate\\build\\win64\\x64\\expandedblueprinteditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_1.h.pch",
+        "Includes": [
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\parangexpandedblueprintplugin\\definitions.parangexpandedblueprintplugin.h",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\parangexpandedblueprintplugin\\uht\\expandedfunctionlibrary.gen.cpp",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\source\\parangexpandedblueprintplugin\\public\\expandedfunctionlibrary.h",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\parangexpandedblueprintplugin\\uht\\expandedfunctionlibrary.generated.h",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\intermediate\\build\\win64\\unrealeditor\\inc\\parangexpandedblueprintplugin\\uht\\parangexpandedblueprintplugin.init.gen.cpp",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\source\\parangexpandedblueprintplugin\\private\\expandedfunctionlibrary.cpp",
+            "d:\\ue_5.2\\engine\\source\\runtime\\engine\\classes\\gameframework\\gameusersettings.h",
+            "d:\\ue_5.2\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameusersettings.generated.h",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\source\\parangexpandedblueprintplugin\\private\\parangexpandedblueprintplugin.cpp",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\source\\parangexpandedblueprintplugin\\public\\parangexpandedblueprintplugin.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "ParangExpandedBlueprintPlugin",
+	"Description": "Simple, Expanded blueprint functions written in C++",
+	"Category": "Other",
+	"CreatedBy": "Parang96",
+	"CreatedByURL": "https://www.notion.so/MinSeok-Lee-f8768ac3f8f44cf9b34e01d93bab14a9",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "ParangExpandedBlueprintPlugin",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\source\\parangexpandedblueprintplugin\\private\\parangexpandedblueprintplugin.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\expandedblueprint\\intermediate\\build\\win64\\x64\\expandedblueprinteditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_1.h.pch",
+        "Includes": [
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\parangexpandedblueprintplugin\\definitions.parangexpandedblueprintplugin.h",
+            "d:\\expandedblueprint\\plugins\\parangexpandedblueprintplugin\\source\\parangexpandedblueprintplugin\\public\\parangexpandedblueprintplugin.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
