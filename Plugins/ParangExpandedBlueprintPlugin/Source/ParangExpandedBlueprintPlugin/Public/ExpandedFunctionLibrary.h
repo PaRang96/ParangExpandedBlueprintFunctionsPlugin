@@ -7,7 +7,6 @@
 #include "ExpandedFunctionLibrary.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(ParangExpandedBlueprintPluginLog, Log, All);
-DEFINE_LOG_CATEGORY(ParangExpandedBlueprintPluginLog);
 
 UENUM(BlueprintType)
 enum class EExpandedFunctionLibraryLogType : uint8
@@ -26,7 +25,7 @@ class PARANGEXPANDEDBLUEPRINTPLUGIN_API UExpandedFunctionLibrary : public UBluep
 	GENERATED_BODY()
 	
 protected:
-	static void MakeLog(FString LogContent, EExpandedFunctionLibraryLogType ExpandedFunctionLibraryLogType);
+	static void MakeLog(FString LogContent, EExpandedFunctionLibraryLogType ExpandedFunctionLibraryLogType = EExpandedFunctionLibraryLogType::Log);
 
 	static void MakeLog_Internal_Log(FString LogContent);
 
@@ -45,22 +44,22 @@ public:
 	static void SetWindowMode(EWindowMode::Type NewWindowMode);
 
 	UFUNCTION(BlueprintCallable, Category = "Data")
-	static TArray<uint8> StringToBytes(FString InString);
+	static TArray<uint8> ConvertStringToBytes(FString InString);
 
 	UFUNCTION(BlueprintCallable, Category = "Data")
-	static TArray<uint8> IntToBytes(int32 InInt);
+	static TArray<uint8> ConvertIntToBytes(int32 InInt);
 
 	UFUNCTION(BlueprintCallable, Category = "Data")
-	static TArray<uint8> FloatToBytes(float InFloat);
+	static TArray<uint8> ConvertFloatToBytes(float InFloat);
 
 	UFUNCTION(BlueprintCallable, Category = "Data")
-	static FString BytesToString(UPARAM(ref) TArray<uint8>& InBytes);
+	static FString ConvertBytesToString(UPARAM(ref) TArray<uint8>& InBytes);
 
 	UFUNCTION(BlueprintCallable, Category = "Data")
-	static int32 BytesToInt(UPARAM(ref) TArray<uint8>& InBytes);
+	static int32 ConvertBytesToInt(UPARAM(ref) TArray<uint8>& InBytes);
 
 	UFUNCTION(BlueprintCallable, Category = "Data")
-	static float BytesToFloat(UPARAM(ref) TArray<uint8>& InBytes);
+	static float ConvertBytesToFloat(UPARAM(ref) TArray<uint8>& InBytes);
 
 	UFUNCTION(BlueprintCallable, Category = "File")
 	static bool DeleteFile(FString Path);
@@ -70,4 +69,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "File")
 	static USoundWave* OpenSoundWave(FString Path);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, DisplayName = "IsAlmostSameFloat", Category = "Number")
+	static bool IsAlmostSameFloat(float inFloatA, float inFloatB);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, DisplayName = "IsAlmostSameVector", Category = "Number")
+	static bool IsAlmostSameVector(FVector inVectorA, FVector inVectorB);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Text")
+	static TArray<FString> ParseTable(FString Path, FString Delimiter);
 };

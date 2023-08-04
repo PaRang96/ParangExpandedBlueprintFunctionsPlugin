@@ -7,6 +7,7 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "D:\ExpandedBlueprint\Intermediate\Build\Win64\x64\ExpandedBlueprintEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h.obj"
-"D:\ExpandedBlueprint\Plugins\ParangExpandedBlueprintPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\ParangExpandedBlueprintPlugin\ParangExpandedBlueprintPlugin.cpp.obj"
+"D:\ExpandedBlueprint\Plugins\ParangExpandedBlueprintPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\ParangExpandedBlueprintPlugin\Module.ParangExpandedBlueprintPlugin.cpp.obj"
+"D:\ExpandedBlueprint\Plugins\ParangExpandedBlueprintPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\ParangExpandedBlueprintPlugin\ExpandedFunctionLibrary.cpp.obj"
 "D:\ExpandedBlueprint\Plugins\ParangExpandedBlueprintPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\ParangExpandedBlueprintPlugin\Default.rc2.res"
 /OUT:"D:\ExpandedBlueprint\Plugins\ParangExpandedBlueprintPlugin\Intermediate\Build\Win64\x64\UnrealEditor\Development\ParangExpandedBlueprintPlugin\UnrealEditor-ParangExpandedBlueprintPlugin.lib"

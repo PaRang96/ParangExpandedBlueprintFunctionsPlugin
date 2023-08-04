@@ -9,6 +9,7 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 // Cross Module References
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 	ENGINE_API UClass* Z_Construct_UClass_UBlueprintFunctionLibrary();
 	ENGINE_API UClass* Z_Construct_UClass_USoundWave_NoRegister();
 	ENGINE_API UEnum* Z_Construct_UEnum_Engine_EWindowMode();
@@ -75,6 +76,33 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 		}
 		return Z_Registration_Info_UEnum_EExpandedFunctionLibraryLogType.InnerSingleton;
 	}
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execParseTable)
+	{
+		P_GET_PROPERTY(FStrProperty,Z_Param_Path);
+		P_GET_PROPERTY(FStrProperty,Z_Param_Delimiter);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		*(TArray<FString>*)Z_Param__Result=UExpandedFunctionLibrary::ParseTable(Z_Param_Path,Z_Param_Delimiter);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execIsAlmostSameVector)
+	{
+		P_GET_STRUCT(FVector,Z_Param_inVectorA);
+		P_GET_STRUCT(FVector,Z_Param_inVectorB);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		*(bool*)Z_Param__Result=UExpandedFunctionLibrary::IsAlmostSameVector(Z_Param_inVectorA,Z_Param_inVectorB);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execIsAlmostSameFloat)
+	{
+		P_GET_PROPERTY(FFloatProperty,Z_Param_inFloatA);
+		P_GET_PROPERTY(FFloatProperty,Z_Param_inFloatB);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		*(bool*)Z_Param__Result=UExpandedFunctionLibrary::IsAlmostSameFloat(Z_Param_inFloatA,Z_Param_inFloatB);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(UExpandedFunctionLibrary::execOpenSoundWave)
 	{
 		P_GET_PROPERTY(FStrProperty,Z_Param_Path);
@@ -99,52 +127,52 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 		*(bool*)Z_Param__Result=UExpandedFunctionLibrary::DeleteFile(Z_Param_Path);
 		P_NATIVE_END;
 	}
-	DEFINE_FUNCTION(UExpandedFunctionLibrary::execBytesToFloat)
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execConvertBytesToFloat)
 	{
 		P_GET_TARRAY_REF(uint8,Z_Param_Out_InBytes);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		*(float*)Z_Param__Result=UExpandedFunctionLibrary::BytesToFloat(Z_Param_Out_InBytes);
+		*(float*)Z_Param__Result=UExpandedFunctionLibrary::ConvertBytesToFloat(Z_Param_Out_InBytes);
 		P_NATIVE_END;
 	}
-	DEFINE_FUNCTION(UExpandedFunctionLibrary::execBytesToInt)
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execConvertBytesToInt)
 	{
 		P_GET_TARRAY_REF(uint8,Z_Param_Out_InBytes);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		*(int32*)Z_Param__Result=UExpandedFunctionLibrary::BytesToInt(Z_Param_Out_InBytes);
+		*(int32*)Z_Param__Result=UExpandedFunctionLibrary::ConvertBytesToInt(Z_Param_Out_InBytes);
 		P_NATIVE_END;
 	}
-	DEFINE_FUNCTION(UExpandedFunctionLibrary::execBytesToString)
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execConvertBytesToString)
 	{
 		P_GET_TARRAY_REF(uint8,Z_Param_Out_InBytes);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		*(FString*)Z_Param__Result=UExpandedFunctionLibrary::BytesToString(Z_Param_Out_InBytes);
+		*(FString*)Z_Param__Result=UExpandedFunctionLibrary::ConvertBytesToString(Z_Param_Out_InBytes);
 		P_NATIVE_END;
 	}
-	DEFINE_FUNCTION(UExpandedFunctionLibrary::execFloatToBytes)
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execConvertFloatToBytes)
 	{
 		P_GET_PROPERTY(FFloatProperty,Z_Param_InFloat);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		*(TArray<uint8>*)Z_Param__Result=UExpandedFunctionLibrary::FloatToBytes(Z_Param_InFloat);
+		*(TArray<uint8>*)Z_Param__Result=UExpandedFunctionLibrary::ConvertFloatToBytes(Z_Param_InFloat);
 		P_NATIVE_END;
 	}
-	DEFINE_FUNCTION(UExpandedFunctionLibrary::execIntToBytes)
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execConvertIntToBytes)
 	{
 		P_GET_PROPERTY(FIntProperty,Z_Param_InInt);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		*(TArray<uint8>*)Z_Param__Result=UExpandedFunctionLibrary::IntToBytes(Z_Param_InInt);
+		*(TArray<uint8>*)Z_Param__Result=UExpandedFunctionLibrary::ConvertIntToBytes(Z_Param_InInt);
 		P_NATIVE_END;
 	}
-	DEFINE_FUNCTION(UExpandedFunctionLibrary::execStringToBytes)
+	DEFINE_FUNCTION(UExpandedFunctionLibrary::execConvertStringToBytes)
 	{
 		P_GET_PROPERTY(FStrProperty,Z_Param_InString);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		*(TArray<uint8>*)Z_Param__Result=UExpandedFunctionLibrary::StringToBytes(Z_Param_InString);
+		*(TArray<uint8>*)Z_Param__Result=UExpandedFunctionLibrary::ConvertStringToBytes(Z_Param_InString);
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(UExpandedFunctionLibrary::execSetWindowMode)
@@ -177,24 +205,27 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 	{
 		UClass* Class = UExpandedFunctionLibrary::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
-			{ "BytesToFloat", &UExpandedFunctionLibrary::execBytesToFloat },
-			{ "BytesToInt", &UExpandedFunctionLibrary::execBytesToInt },
-			{ "BytesToString", &UExpandedFunctionLibrary::execBytesToString },
+			{ "ConvertBytesToFloat", &UExpandedFunctionLibrary::execConvertBytesToFloat },
+			{ "ConvertBytesToInt", &UExpandedFunctionLibrary::execConvertBytesToInt },
+			{ "ConvertBytesToString", &UExpandedFunctionLibrary::execConvertBytesToString },
+			{ "ConvertFloatToBytes", &UExpandedFunctionLibrary::execConvertFloatToBytes },
+			{ "ConvertIntToBytes", &UExpandedFunctionLibrary::execConvertIntToBytes },
+			{ "ConvertStringToBytes", &UExpandedFunctionLibrary::execConvertStringToBytes },
 			{ "DeleteFile", &UExpandedFunctionLibrary::execDeleteFile },
-			{ "FloatToBytes", &UExpandedFunctionLibrary::execFloatToBytes },
-			{ "IntToBytes", &UExpandedFunctionLibrary::execIntToBytes },
+			{ "IsAlmostSameFloat", &UExpandedFunctionLibrary::execIsAlmostSameFloat },
+			{ "IsAlmostSameVector", &UExpandedFunctionLibrary::execIsAlmostSameVector },
 			{ "OpenSoundWave", &UExpandedFunctionLibrary::execOpenSoundWave },
+			{ "ParseTable", &UExpandedFunctionLibrary::execParseTable },
 			{ "ReadFile", &UExpandedFunctionLibrary::execReadFile },
 			{ "SetScreenPosition", &UExpandedFunctionLibrary::execSetScreenPosition },
 			{ "SetScreenResolution", &UExpandedFunctionLibrary::execSetScreenResolution },
 			{ "SetWindowMode", &UExpandedFunctionLibrary::execSetWindowMode },
-			{ "StringToBytes", &UExpandedFunctionLibrary::execStringToBytes },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
-	struct Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics
 	{
-		struct ExpandedFunctionLibrary_eventBytesToFloat_Parms
+		struct ExpandedFunctionLibrary_eventConvertBytesToFloat_Parms
 		{
 			TArray<uint8> InBytes;
 			float ReturnValue;
@@ -208,33 +239,33 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::NewProp_InBytes_Inner = { "InBytes", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::NewProp_InBytes = { "InBytes", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventBytesToFloat_Parms, InBytes), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventBytesToFloat_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::NewProp_InBytes_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::NewProp_InBytes,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::NewProp_ReturnValue,
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::NewProp_InBytes_Inner = { "InBytes", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::NewProp_InBytes = { "InBytes", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertBytesToFloat_Parms, InBytes), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertBytesToFloat_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::NewProp_InBytes_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::NewProp_InBytes,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::NewProp_ReturnValue,
 	};
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::Function_MetaDataParams[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Data" },
 		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "BytesToFloat", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::ExpandedFunctionLibrary_eventBytesToFloat_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat()
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "ConvertBytesToFloat", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::ExpandedFunctionLibrary_eventConvertBytesToFloat_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics
 	{
-		struct ExpandedFunctionLibrary_eventBytesToInt_Parms
+		struct ExpandedFunctionLibrary_eventConvertBytesToInt_Parms
 		{
 			TArray<uint8> InBytes;
 			int32 ReturnValue;
@@ -248,33 +279,33 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::NewProp_InBytes_Inner = { "InBytes", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::NewProp_InBytes = { "InBytes", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventBytesToInt_Parms, InBytes), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventBytesToInt_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::NewProp_InBytes_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::NewProp_InBytes,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::NewProp_ReturnValue,
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::NewProp_InBytes_Inner = { "InBytes", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::NewProp_InBytes = { "InBytes", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertBytesToInt_Parms, InBytes), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertBytesToInt_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::NewProp_InBytes_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::NewProp_InBytes,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::NewProp_ReturnValue,
 	};
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::Function_MetaDataParams[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Data" },
 		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "BytesToInt", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::ExpandedFunctionLibrary_eventBytesToInt_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt()
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "ConvertBytesToInt", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::ExpandedFunctionLibrary_eventConvertBytesToInt_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics
 	{
-		struct ExpandedFunctionLibrary_eventBytesToString_Parms
+		struct ExpandedFunctionLibrary_eventConvertBytesToString_Parms
 		{
 			TArray<uint8> InBytes;
 			FString ReturnValue;
@@ -288,27 +319,147 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::NewProp_InBytes_Inner = { "InBytes", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::NewProp_InBytes = { "InBytes", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventBytesToString_Parms, InBytes), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventBytesToString_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::NewProp_InBytes_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::NewProp_InBytes,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::NewProp_ReturnValue,
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::NewProp_InBytes_Inner = { "InBytes", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::NewProp_InBytes = { "InBytes", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertBytesToString_Parms, InBytes), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertBytesToString_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::NewProp_InBytes_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::NewProp_InBytes,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::NewProp_ReturnValue,
 	};
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::Function_MetaDataParams[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Data" },
 		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "BytesToString", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::ExpandedFunctionLibrary_eventBytesToString_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString()
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "ConvertBytesToString", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::ExpandedFunctionLibrary_eventConvertBytesToString_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics
+	{
+		struct ExpandedFunctionLibrary_eventConvertFloatToBytes_Parms
+		{
+			float InFloat;
+			TArray<uint8> ReturnValue;
+		};
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_InFloat;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnValue_Inner;
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::NewProp_InFloat = { "InFloat", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertFloatToBytes_Parms, InFloat), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertFloatToBytes_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::NewProp_InFloat,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::NewProp_ReturnValue_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Data" },
+		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "ConvertFloatToBytes", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::ExpandedFunctionLibrary_eventConvertFloatToBytes_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics
+	{
+		struct ExpandedFunctionLibrary_eventConvertIntToBytes_Parms
+		{
+			int32 InInt;
+			TArray<uint8> ReturnValue;
+		};
+		static const UECodeGen_Private::FIntPropertyParams NewProp_InInt;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnValue_Inner;
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::NewProp_InInt = { "InInt", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertIntToBytes_Parms, InInt), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertIntToBytes_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::NewProp_InInt,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::NewProp_ReturnValue_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Data" },
+		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "ConvertIntToBytes", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::ExpandedFunctionLibrary_eventConvertIntToBytes_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics
+	{
+		struct ExpandedFunctionLibrary_eventConvertStringToBytes_Parms
+		{
+			FString InString;
+			TArray<uint8> ReturnValue;
+		};
+		static const UECodeGen_Private::FStrPropertyParams NewProp_InString;
+		static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnValue_Inner;
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::NewProp_InString = { "InString", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertStringToBytes_Parms, InString), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventConvertStringToBytes_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::NewProp_InString,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::NewProp_ReturnValue_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Data" },
+		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "ConvertStringToBytes", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::ExpandedFunctionLibrary_eventConvertStringToBytes_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -354,83 +505,97 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics
 	{
-		struct ExpandedFunctionLibrary_eventFloatToBytes_Parms
+		struct ExpandedFunctionLibrary_eventIsAlmostSameFloat_Parms
 		{
-			float InFloat;
-			TArray<uint8> ReturnValue;
+			float inFloatA;
+			float inFloatB;
+			bool ReturnValue;
 		};
-		static const UECodeGen_Private::FFloatPropertyParams NewProp_InFloat;
-		static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnValue_Inner;
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_inFloatA;
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_inFloatB;
+		static void NewProp_ReturnValue_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::NewProp_InFloat = { "InFloat", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventFloatToBytes_Parms, InFloat), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventFloatToBytes_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::NewProp_InFloat,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::NewProp_ReturnValue_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::NewProp_ReturnValue,
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_inFloatA = { "inFloatA", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventIsAlmostSameFloat_Parms, inFloatA), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_inFloatB = { "inFloatB", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventIsAlmostSameFloat_Parms, inFloatB), METADATA_PARAMS(nullptr, 0) };
+	void Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+	{
+		((ExpandedFunctionLibrary_eventIsAlmostSameFloat_Parms*)Obj)->ReturnValue = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(ExpandedFunctionLibrary_eventIsAlmostSameFloat_Parms), &Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_inFloatA,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_inFloatB,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::NewProp_ReturnValue,
 	};
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::Function_MetaDataParams[] = {
-		{ "Category", "Data" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Number" },
+		{ "DisplayName", "IsAlmostSameFloat" },
 		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "FloatToBytes", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::ExpandedFunctionLibrary_eventFloatToBytes_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes()
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "IsAlmostSameFloat", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::ExpandedFunctionLibrary_eventIsAlmostSameFloat_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics
 	{
-		struct ExpandedFunctionLibrary_eventIntToBytes_Parms
+		struct ExpandedFunctionLibrary_eventIsAlmostSameVector_Parms
 		{
-			int32 InInt;
-			TArray<uint8> ReturnValue;
+			FVector inVectorA;
+			FVector inVectorB;
+			bool ReturnValue;
 		};
-		static const UECodeGen_Private::FIntPropertyParams NewProp_InInt;
-		static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnValue_Inner;
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_inVectorA;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_inVectorB;
+		static void NewProp_ReturnValue_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::NewProp_InInt = { "InInt", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventIntToBytes_Parms, InInt), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventIntToBytes_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::NewProp_InInt,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::NewProp_ReturnValue_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::NewProp_ReturnValue,
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_inVectorA = { "inVectorA", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventIsAlmostSameVector_Parms, inVectorA), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_inVectorB = { "inVectorB", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventIsAlmostSameVector_Parms, inVectorB), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
+	void Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+	{
+		((ExpandedFunctionLibrary_eventIsAlmostSameVector_Parms*)Obj)->ReturnValue = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(ExpandedFunctionLibrary_eventIsAlmostSameVector_Parms), &Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_inVectorA,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_inVectorB,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::NewProp_ReturnValue,
 	};
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::Function_MetaDataParams[] = {
-		{ "Category", "Data" },
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Number" },
+		{ "DisplayName", "IsAlmostSameVector" },
 		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "IntToBytes", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::ExpandedFunctionLibrary_eventIntToBytes_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes()
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "IsAlmostSameVector", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::ExpandedFunctionLibrary_eventIsAlmostSameVector_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14822401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector()
 	{
 		static UFunction* ReturnFunction = nullptr;
 		if (!ReturnFunction)
 		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes_Statics::FuncParams);
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -468,6 +633,50 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_OpenSoundWave_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics
+	{
+		struct ExpandedFunctionLibrary_eventParseTable_Parms
+		{
+			FString Path;
+			FString Delimiter;
+			TArray<FString> ReturnValue;
+		};
+		static const UECodeGen_Private::FStrPropertyParams NewProp_Path;
+		static const UECodeGen_Private::FStrPropertyParams NewProp_Delimiter;
+		static const UECodeGen_Private::FStrPropertyParams NewProp_ReturnValue_Inner;
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_Path = { "Path", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventParseTable_Parms, Path), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_Delimiter = { "Delimiter", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventParseTable_Parms, Delimiter), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventParseTable_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_Path,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_Delimiter,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_ReturnValue_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::Function_MetaDataParams[] = {
+		{ "Category", "Text" },
+		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "ParseTable", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::ExpandedFunctionLibrary_eventParseTable_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -615,46 +824,6 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics
-	{
-		struct ExpandedFunctionLibrary_eventStringToBytes_Parms
-		{
-			FString InString;
-			TArray<uint8> ReturnValue;
-		};
-		static const UECodeGen_Private::FStrPropertyParams NewProp_InString;
-		static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnValue_Inner;
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_ReturnValue;
-		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
-#endif
-		static const UECodeGen_Private::FFunctionParams FuncParams;
-	};
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::NewProp_InString = { "InString", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventStringToBytes_Parms, InString), METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(ExpandedFunctionLibrary_eventStringToBytes_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::NewProp_InString,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::NewProp_ReturnValue_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::NewProp_ReturnValue,
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::Function_MetaDataParams[] = {
-		{ "Category", "Data" },
-		{ "ModuleRelativePath", "Public/ExpandedFunctionLibrary.h" },
-	};
-#endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UExpandedFunctionLibrary, nullptr, "StringToBytes", nullptr, nullptr, sizeof(Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::ExpandedFunctionLibrary_eventStringToBytes_Parms), Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::Function_MetaDataParams)) };
-	UFunction* Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes()
-	{
-		static UFunction* ReturnFunction = nullptr;
-		if (!ReturnFunction)
-		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes_Statics::FuncParams);
-		}
-		return ReturnFunction;
-	}
 	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UExpandedFunctionLibrary);
 	UClass* Z_Construct_UClass_UExpandedFunctionLibrary_NoRegister()
 	{
@@ -675,18 +844,21 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_ParangExpandedBlueprintPlugin,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_UExpandedFunctionLibrary_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToFloat, "BytesToFloat" }, // 3144016630
-		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToInt, "BytesToInt" }, // 3906442012
-		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_BytesToString, "BytesToString" }, // 700623488
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToFloat, "ConvertBytesToFloat" }, // 2406870090
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToInt, "ConvertBytesToInt" }, // 3178033171
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertBytesToString, "ConvertBytesToString" }, // 2324060364
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertFloatToBytes, "ConvertFloatToBytes" }, // 120556836
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertIntToBytes, "ConvertIntToBytes" }, // 3532932477
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ConvertStringToBytes, "ConvertStringToBytes" }, // 2686454017
 		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_DeleteFile, "DeleteFile" }, // 2898114434
-		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_FloatToBytes, "FloatToBytes" }, // 557476662
-		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_IntToBytes, "IntToBytes" }, // 2030530154
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameFloat, "IsAlmostSameFloat" }, // 3888141862
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_IsAlmostSameVector, "IsAlmostSameVector" }, // 580429782
 		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_OpenSoundWave, "OpenSoundWave" }, // 1548592366
+		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ParseTable, "ParseTable" }, // 3754427770
 		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_ReadFile, "ReadFile" }, // 2228539931
 		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_SetScreenPosition, "SetScreenPosition" }, // 1821653411
 		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_SetScreenResolution, "SetScreenResolution" }, // 624673571
 		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_SetWindowMode, "SetWindowMode" }, // 468733353
-		{ &Z_Construct_UFunction_UExpandedFunctionLibrary_StringToBytes, "StringToBytes" }, // 244318865
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UExpandedFunctionLibrary_Statics::Class_MetaDataParams[] = {
@@ -737,9 +909,9 @@ void EmptyLinkFunctionForGeneratedCodeExpandedFunctionLibrary() {}
 		{ EExpandedFunctionLibraryLogType_StaticEnum, TEXT("EExpandedFunctionLibraryLogType"), &Z_Registration_Info_UEnum_EExpandedFunctionLibraryLogType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 678392273U) },
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ExpandedBlueprint_Plugins_ParangExpandedBlueprintPlugin_Source_ParangExpandedBlueprintPlugin_Public_ExpandedFunctionLibrary_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UExpandedFunctionLibrary, UExpandedFunctionLibrary::StaticClass, TEXT("UExpandedFunctionLibrary"), &Z_Registration_Info_UClass_UExpandedFunctionLibrary, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExpandedFunctionLibrary), 306126626U) },
+		{ Z_Construct_UClass_UExpandedFunctionLibrary, UExpandedFunctionLibrary::StaticClass, TEXT("UExpandedFunctionLibrary"), &Z_Registration_Info_UClass_UExpandedFunctionLibrary, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExpandedFunctionLibrary), 4145191456U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ExpandedBlueprint_Plugins_ParangExpandedBlueprintPlugin_Source_ParangExpandedBlueprintPlugin_Public_ExpandedFunctionLibrary_h_2556255059(TEXT("/Script/ParangExpandedBlueprintPlugin"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_ExpandedBlueprint_Plugins_ParangExpandedBlueprintPlugin_Source_ParangExpandedBlueprintPlugin_Public_ExpandedFunctionLibrary_h_181651330(TEXT("/Script/ParangExpandedBlueprintPlugin"),
 		Z_CompiledInDeferFile_FID_ExpandedBlueprint_Plugins_ParangExpandedBlueprintPlugin_Source_ParangExpandedBlueprintPlugin_Public_ExpandedFunctionLibrary_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ExpandedBlueprint_Plugins_ParangExpandedBlueprintPlugin_Source_ParangExpandedBlueprintPlugin_Public_ExpandedFunctionLibrary_h_Statics::ClassInfo),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_ExpandedBlueprint_Plugins_ParangExpandedBlueprintPlugin_Source_ParangExpandedBlueprintPlugin_Public_ExpandedFunctionLibrary_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_ExpandedBlueprint_Plugins_ParangExpandedBlueprintPlugin_Source_ParangExpandedBlueprintPlugin_Public_ExpandedFunctionLibrary_h_Statics::EnumInfo));

@@ -2,10 +2,10 @@
 	"RemapUnityFiles": 
 	{
 		"Module.ParangExpandedBlueprintPlugin.cpp.obj": [
+			"ParangExpandedBlueprintPlugin.cpp.obj",
 			"ExpandedFunctionLibrary.gen.cpp.obj",
 			"ParangExpandedBlueprintPlugin.init.gen.cpp.obj",
-			"ExpandedFunctionLibrary.cpp.obj",
-			"ParangExpandedBlueprintPlugin.cpp.obj"
+			"ExpandedFunctionLibrary.cpp.obj"
 		]
 	}
 }
